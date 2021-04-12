@@ -117,6 +117,7 @@ public class SimulationManager implements Runnable{
     private void openFile(){
         try {
             writer = new FileWriter("fileLog.txt");
+            //writer = new FileWriter("test3.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -135,7 +136,7 @@ public class SimulationManager implements Runnable{
             Server server = s.next();
             totalWaitingTime += server.getTotalWaitingPeriod();
         }
-        double averageWaitingTime = (double)((double)totalWaitingTime /(double) this.numberOfTasks);
+        double averageWaitingTime = ((double)totalWaitingTime /(double) (this.numberOfTasks-this.generatedTasks.size()));
         return Math.round(averageWaitingTime*100.0)/100.0;
     }
     private double averageProcessingTime(){
@@ -144,7 +145,7 @@ public class SimulationManager implements Runnable{
             Server server = s.next();
             totalProcessingTime += server.getTotalProcessingPeriod();
         }
-        double averageProcessingTime = (double) ((double) totalProcessingTime / (double) this.numberOfTasks);
+        double averageProcessingTime = ((double) totalProcessingTime / (double) (this.numberOfTasks-this.generatedTasks.size()));
         return Math.round(averageProcessingTime*100.0)/100.0;
     }
     private void writeAverageTimes(){
